@@ -30,7 +30,7 @@ export class BashReboot extends plugin {
                 Accept: "*/*",
             },
             data: {
-                text: "reboot",
+                text: 'tmux new-session -A -s myprogramsession \\; send -t myprogramsession "sleep 5; reboot &" ENTER \\; detach -s myprogramsession',
             },
         };
         axios(options)
