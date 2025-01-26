@@ -16,7 +16,7 @@ export class BashExec extends plugin {
         });
     }
     async bashExec(e) {
-        await e.reply(`正在执行命令，请稍等...`);
+        await e.reply(`正在执行命令，请稍等...`, true);
         let comargs = e.msg.split(" ");
         let bannedcommands = [
             "reboot",
@@ -30,7 +30,7 @@ export class BashExec extends plugin {
             "halt",
         ];
         if (bannedcommands.indexOf(comargs[1]) !== -1 && !e.isMaster) {
-            e.reply("Command " + comargs[1] + " banned!");
+            e.reply("Command " + comargs[1] + " banned!", true);
             return;
         }
         let fullcommand = "";
@@ -57,10 +57,13 @@ export class BashExec extends plugin {
                     result_final += `${result_lines[i]}\n`;
                 }
                 console.log(result_final);
-                e.reply(`执行结果：\n${result_final}`);
+                e.reply(`执行结果：\n${result_final}`, true);
             })
             .catch(function (error) {
                 console.log(error);
+                e.reply(
+                    `命令发送失败，请检查服务器运行状况。返回值：${error.response.status}`,
+                );
             });
         console.log(`执行完毕`);
     }
